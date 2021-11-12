@@ -1,0 +1,47 @@
+name: Basic test workflow
+
+on:
+  - pull_request
+  - push
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+#          - macos-latest
+#          - ubuntu-latest
+#          - windows-latest
+          - ubuntu-18.04
+        ocaml-version:
+          - 4.11.0
+#          - 4.10.1
+#          - 4.09.1
+#          - 4.08.1
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Try to restore opam cache
+        if: runner.os != 'Windows'
+        id: opam-cache
+        uses: actions/cache@v2
+        with:
+          path: "~/.opam"
+          key: ${{ matrix.os }}-${{ matrix.ocaml-version }}  
+
+      - name: Use OCaml ${{ matrix.ocaml-version }}
+        uses: avsm/setup-ocaml@v1
+        with:
+          ocaml-version: ${{ matrix.ocaml-version }}
+
+      - run: opam install ocamlbuild
+      - name: Build project
+        run: eval $(opam env) && make build
+      - name: Run demo
+        run: eval $(opam env) && make demo
+
