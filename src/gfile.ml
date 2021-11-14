@@ -99,3 +99,15 @@ let from_file path =
   close_in infile ;
   final_graph
 
+let export nom_graphe graphe =
+  (*En modifiant le graphe dynamiquement sur http://magjac.com/ le size et le 
+    node shape ont peut d'importance. Nous les laissons (pour l'instant) tels qu'ils sont*)
+  let ff = open_out nom_graphe in
+  fprintf ff "digraph finite_state_machine {
+	rankdir=LR;
+	size=\"8,5\" 
+  node [shape = doublecircle];
+  node[shape = circle];";
+  (* On itère sur tous les arcs du graphe pour avoir le même format du code *)
+  e_iter graphe (fun noeud1 noeud2 arc -> (fprintf ff "%i -> %i [ label = \"%i\" ];\n" noeud1 noeud2 arc));
+  fprintf ff "}";
