@@ -1,6 +1,6 @@
 open Graph
 open Printf
-    
+
 type path = string
 
 (* Format of text files:
@@ -30,7 +30,7 @@ let compute_y id =
   let sgn = if delta mod 2 = 0 then -1 else 1 in
 
   300 + sgn * (delta / 2) * 100
-  
+
 
 let write_file path graph =
 
@@ -46,9 +46,9 @@ let write_file path graph =
 
   (* Write all arcs *)
   let _ = e_fold graph (fun count id1 id2 lbl -> fprintf ff "e %d %d %d %s\n" id1 id2 count lbl ; count + 1) 0 in
-  
+
   fprintf ff "\n%% End of graph\n" ;
-  
+
   close_out ff ;
   ()
 
@@ -105,25 +105,23 @@ let from_file path =
       loop graph2
 
     with End_of_file -> graph (* Done *)
-  in
+  in    
 
   let final_graph = loop empty_graph in
-  
+
   close_in infile ;
   final_graph
-  
 
 
-
-let export nom_graphe graphe =
+let export nom_graphe graph =
   (*En modifiant le graphe dynamiquement sur http://magjac.com/ le size et le 
     node shape ont peut d'importance. Nous les laissons (pour l'instant) tels qu'ils sont*)
   let ff = open_out nom_graphe in
   fprintf ff "digraph finite_state_machine {
-	rankdir=LR;
-	size=\"8,5\" 
-  node [shape = doublecircle];
-  node[shape = circle];";
+    rankdir=LR;
+    size=\"8,5\" 
+    node [shape = doublecircle];
+    node[shape = circle];";
   (* On itère sur tous les arcs du graphe pour avoir le même format du code *)
-  e_iter graphe (fun noeud1 noeud2 arc -> (fprintf ff "%i -> %i [ label = \"%i\" ];\n" noeud1 noeud2 arc));
+  e_iter graph (fun noeud1 noeud2 arc -> (fprintf ff "%i -> %i [ label = \"%i\" ];\n" noeud1 noeud2 arc));
   fprintf ff "}";

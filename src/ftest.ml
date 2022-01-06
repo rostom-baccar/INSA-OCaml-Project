@@ -1,7 +1,10 @@
+open Printf
 open Gfile
 open Tools
+open Algo_max_flow
 
 let () =
+
 
   (* Check the number of command-line arguments *)
   if Array.length Sys.argv <> 5 then
@@ -22,16 +25,23 @@ let () =
   and outfile = Sys.argv.(4)
 
   (* These command-line arguments are not used for the moment. *)
-  and _source = int_of_string Sys.argv.(2)
-  and _sink = int_of_string Sys.argv.(3)
+  and source = int_of_string Sys.argv.(2)
+  and sink = int_of_string Sys.argv.(3)
   in
 
   (* Open file *)
   let graph = from_file infile in
-  
-    let graph_test = clone_nodes graph in 
-    (* Rewrite the graph that has been read. *)
-  
-  let () = write_file outfile graph_test in
+  (* gmap Test *)
+  (*let f x = string_of_int(2*(int_of_string x)) in
+    let graph1 = gmap graph f in *)
+  let graphint = gmap graph int_of_string in
+
+  let graphford = fordfulkerson graphint 0 source sink  in 
+  let graphout = gmap graphford string_of_int in
+
+
+  (* Rewrite the graph that has been read. *)
+  let () = write_file outfile graphout in
 
   ()
+

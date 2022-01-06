@@ -60,3 +60,4 @@ val e_iter: 'a graph -> (id -> id -> 'a -> unit) -> unit
 (* Fold on all arcs (edges) *)
 val e_fold: 'a graph -> ('b -> id -> id -> 'a -> 'b) -> 'b -> 'b
 
+
