@@ -10,16 +10,10 @@ val find_path : intgraph -> id list -> id -> id -> path option
 
 val string_of_path : path option -> string 
 
-val aux_sop : string -> path -> string 
+val fordfulkerson : intgraph -> int -> int -> id -> id -> int*intgraph
 
-val update : intgraph -> int -> id -> path -> intgraph
+val get_flow_result : int*intgraph -> int 
 
-val get_bottleneck : intgraph -> id -> int -> path -> int
-
-val get_flow_max : intgraph -> int -> int 
-
-val aux : intgraph -> id -> path -> intgraph
-
-val fordfulkerson : intgraph -> int -> id -> id -> intgraph
+val get_graph_result : int*intgraph -> intgraph
 
 

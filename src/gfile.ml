@@ -113,15 +113,14 @@ let from_file path =
   final_graph
 
 
-let export nom_graphe graph =
-  (*En modifiant le graphe dynamiquement sur http://magjac.com/ le size et le 
-    node shape ont peut d'importance. Nous les laissons (pour l'instant) tels qu'ils sont*)
-  let ff = open_out nom_graphe in
-  fprintf ff "digraph finite_state_machine {
-    rankdir=LR;
-    size=\"8,5\" 
-    node [shape = doublecircle];
-    node[shape = circle];";
-  (* On itère sur tous les arcs du graphe pour avoir le même format du code *)
-  e_iter graph (fun noeud1 noeud2 arc -> (fprintf ff "%i -> %i [ label = \"%i\" ];\n" noeud1 noeud2 arc));
-  fprintf ff "}";
+let export file graph =
+
+  let dot = open_out file in
+  fprintf dot "/* This is a graph in dot format. */\n" ;
+  fprintf dot "digraph dotgraph { \n rankdir=LR; \n node [shape = circle]; \n" ; 
+  e_iter graph (fun id1 id2 lbl -> fprintf dot "%d -> %d [label = %s] ;\n" id1 id2 lbl) ;
+  fprintf dot "}" ;
+
+  fprintf dot "\n /* End of graph */\n" ;
+  close_out dot ;
+  ()
