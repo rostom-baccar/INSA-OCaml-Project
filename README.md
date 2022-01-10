@@ -1,3 +1,5 @@
+# Ford-Fulkerson OCaml project
+
 Base project for Ocaml project on Ford-Fulkerson. This project contains some simple configuration files to facilitate editing Ocaml in VSCode.
 
 To use, you should install the *OCaml* extension in VSCode. Other extensions might work as well but make sure there is only one installed.
@@ -9,7 +11,7 @@ Features :
  - code completion
  - automatic indentation on file save
 
-
+## Commands
 A makefile provides some useful commands:
  - `make build` to compile. This creates an ftest.native executable
  - `make demo` to run the `ftest` program with some arguments
@@ -18,6 +20,7 @@ A makefile provides some useful commands:
  - `make clean` to remove build artifact
  - `make build_bip` to compile bipartite_test. This creates an bipartite_test.native executable
  - `make demo_bip` to run the `bipartite_test` program with some arguments
+ - `make dot` to create an svg image of the results (to be found in the folder `Svg_files`)
 
 In case of trouble with the VSCode extension (e.g. the project does not build, there are strange mistakes), a common workaround is to (1) close vscode, (2) `make clean`, (3) `make build` and (4) reopen vscode (`make edit`).
 
