@@ -89,7 +89,7 @@ let rec fordfulkerson graph n fl_max src sink =
   let () = Printf.printf "Path found : %s \n%!" spath in
   (*let () = Printf.printf "Actual flow: %d \n%!" (get_flow_max graph sink) in*)
   match find_path graph [] src sink with
-  | None -> Printf.printf "FLOW MAX DU GRAPH : %d " fl_max;(fl_max, graph)
+  | None -> Printf.printf "FLOW MAX DU GRAPH : %d \n \n \n %!" fl_max;(fl_max, graph)
   | Some path -> fordfulkerson (get_aux_gr(aux graph src path)) (n+1) ((get_aux_fl(aux graph src path) )+fl_max) src sink
 
 

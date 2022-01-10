@@ -15,7 +15,9 @@ A makefile provides some useful commands:
  - `make demo` to run the `ftest` program with some arguments
  - `make format` to indent the entire project
  - `make edit` to open the project in VSCode
- - `make clean` to remove build artifacts
+ - `make clean` to remove build artifact
+ - `make build_bip` to compile bipartite_test. This creates an bipartite_test.native executable
+ - `make demo_bip` to run the `bipartite_test` program with some arguments
 
 In case of trouble with the VSCode extension (e.g. the project does not build, there are strange mistakes), a common workaround is to (1) close vscode, (2) `make clean`, (3) `make build` and (4) reopen vscode (`make edit`).
 
